@@ -1,0 +1,10 @@
+^C:\USERS\JOSEA\DOWNLOADS\PRUEBAS TRAE\CMAKEFILES\F31C877F285A11D8EED3B8F57B794852\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/josea/Downloads/Pruebas Trae/touhou_game" "-BC:/Users/josea/Downloads/Pruebas Trae" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/josea/Downloads/Pruebas Trae/TouhouGame.slnx"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

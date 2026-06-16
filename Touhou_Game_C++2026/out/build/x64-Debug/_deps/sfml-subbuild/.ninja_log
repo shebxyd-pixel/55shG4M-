@@ -1,0 +1,21 @@
+# ninja log v7
+13	289	8026247390653369	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir	ea6e028869f6443a
+13	289	8026247390653369	C:/Users/josea/Downloads/Pruebas Trae/touhou_game/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir	ea6e028869f6443a
+292	30151	8026247689233528	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download	22643a236a74dbb4
+292	30151	8026247689233528	C:/Users/josea/Downloads/Pruebas Trae/touhou_game/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download	22643a236a74dbb4
+30158	30628	8026247689544300	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	ae3f67ee8d7a256b
+30158	30628	8026247689544300	C:/Users/josea/Downloads/Pruebas Trae/touhou_game/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	ae3f67ee8d7a256b
+30628	30820	8026247695924449	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	6d568a337cba5b1f
+30628	30820	8026247695924449	C:/Users/josea/Downloads/Pruebas Trae/touhou_game/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	6d568a337cba5b1f
+30821	31005	8026247697906731	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	52127528992e392f
+30821	31005	8026247697906731	C:/Users/josea/Downloads/Pruebas Trae/touhou_game/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	52127528992e392f
+31006	31197	8026247699802178	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	b2bc25ae136f268f
+31006	31197	8026247699802178	C:/Users/josea/Downloads/Pruebas Trae/touhou_game/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	b2bc25ae136f268f
+31197	31395	8026247701603964	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	331401b5f5584de7
+31197	31395	8026247701603964	C:/Users/josea/Downloads/Pruebas Trae/touhou_game/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	331401b5f5584de7
+31396	31596	8026247703771629	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	14b0dbd0fcc46e82
+31396	31596	8026247703771629	C:/Users/josea/Downloads/Pruebas Trae/touhou_game/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	14b0dbd0fcc46e82
+31597	31869	8026247706377721	CMakeFiles/sfml-populate-complete	8d7d00fdccd351c1
+31597	31869	8026247706377721	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	8d7d00fdccd351c1
+31597	31869	8026247706377721	C:/Users/josea/Downloads/Pruebas Trae/touhou_game/out/build/x64-Debug/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete	8d7d00fdccd351c1
+31597	31869	8026247706377721	C:/Users/josea/Downloads/Pruebas Trae/touhou_game/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	8d7d00fdccd351c1

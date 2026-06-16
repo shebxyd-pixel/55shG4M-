@@ -1,0 +1,32 @@
+﻿  Building Custom Rule C:/Users/josea/Downloads/Pruebas Trae/_deps/sfml-src/src/SFML/Window/CMakeLists.txt
+  Clipboard.cpp
+  Context.cpp
+  Cursor.cpp
+  GlContext.cpp
+  GlResource.cpp
+  Joystick.cpp
+  JoystickManager.cpp
+  Keyboard.cpp
+  Mouse.cpp
+  Touch.cpp
+  Sensor.cpp
+  SensorManager.cpp
+  VideoMode.cpp
+  Vulkan.cpp
+  Window.cpp
+  WindowBase.cpp
+  WindowImpl.cpp
+  CursorImpl.cpp
+  ClipboardImpl.cpp
+  InputImpl.cpp
+  Generando código...
+  Compilando...
+  JoystickImpl.cpp
+  SensorImpl.cpp
+  VideoModeImpl.cpp
+  VulkanImplWin32.cpp
+  WindowImplWin32.cpp
+  WglContext.cpp
+  Generando código...
+     Creando biblioteca C:/Users/josea/Downloads/Pruebas Trae/lib/Debug/sfml-window-d.lib y objeto C:/Users/josea/Downloads/Pruebas Trae/lib/Debug/sfml-window-d.exp
+  sfml-window.vcxproj -> C:\Users\josea\Downloads\Pruebas Trae\bin\Debug\sfml-window-d-2.dll

@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Touhou Style Shooter</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(180deg, #050510 0%, #101030 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Courier New', monospace;
+            color: white;
+        }
+        #gameContainer { position: relative; }
+        canvas {
+            border: 3px solid #4a0080;
+            background: #0a0a1a;
+            display: block;
+            box-shadow: 0 0 40px rgba(100, 0, 200, 0.5);
+        }
+        #ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 16px;
+            text-shadow: 2px 2px 4px #000, 0 0 10px #0ff;
+            color: #0ff;
+        }
+        #ui div { margin: 4px 0; }
+        .menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(10,10,40,0.98) 0%, rgba(5,5,20,0.99) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+        }
+        .menu h1 { 
+            font-size: 42px; 
+            margin-bottom: 30px; 
+            color: #ff66ff;
+            text-shadow: 0 0 20px #f0f, 0 0 40px #800080;
+            letter-spacing: 2px;
+        }
+        .menu h2 { 
+            font-size: 32px; 
+            margin-bottom: 20px; 
+            color: #ffff00;
+            text-shadow: 0 0 15px #ff0;
+        }
+        .menu p { margin: 12px 0; font-size: 18px; color: #aaa; }
+        .menu button {
+            margin: 12px;
+            padding: 18px 50px;
+            font-size: 22px;
+            cursor: pointer;
+            background: linear-gradient(180deg, #2a0050 0%, #1a0030 100%);
+            border: 2px solid #ff00ff;
+            color: #ff66ff;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(255,0,255,0.3);
+        }
+        .menu button:hover { 
+            background: linear-gradient(180deg, #ff00ff 0%, #aa00aa 100%);
+            color: #0a0a1a;
+            box-shadow: 0 0 30px rgba(255,0,255,0.7);
+            transform: scale(1.05);
+        }
+        .controls { margin-top: 50px; color: #88f; font-size: 15px; }
+        .bossHealth {
+            position: absolute;
+            bottom: 20px;
+            left: 10%;
+            width: 80%;
+            height: 30px;
+            background: linear-gradient(180deg, #1a001a 0%, #0a000a 100%);
+            border: 2px solid #ff4488;
+            box-shadow: 0 0 15px rgba(255,0,100,0.4);
+        }
+        .bossHealth div {
+            height: 100%;
+            background: linear-gradient(180deg, #ff4488 0%, #cc0044 100%);
+            transition: width 0.3s;
+        }
+        .bossHealthLabel {
+            position: absolute;
+            bottom: 55px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+            color: #ff4488;
+            text-shadow: 0 0 10px #f04;
+        }
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(20,0,40,0.95);
+            padding: 25px 40px;
+            border: 3px solid #0ff;
+            font-size: 24px;
+            color: #0ff;
+            display: none;
+            text-shadow: 0 0 15px #0ff;
+            box-shadow: 0 0 30px rgba(0,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="640" height="800"></canvas>
+        
+        <div id="ui">
+            <div>🌟 Puntuación: <span id="score">0</span></div>
+            <div>❤️ Vidas: <span id="lives">3</span></div>
+            <div>✨ Munición: <span id="ammo">100</span></div>
+            <div>🌸 Fase: <span id="stage">1</span></div>
+        </div>
+
+        <div class="bossHealthLabel" id="bossLabel" style="display: none;">👹 JEFE FINAL</div>
+        <div class="bossHealth" id="bossHealth" style="display: none;">
+            <div id="bossHealthBar" style="width: 100%;"></div>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <!-- Menu Principal -->
+        <div id="mainMenu" class="menu">
+            <h1>✨ TOUHOU STYLE SHOOTER ✨</h1>
+            <button id="playBtn">🎮 JUGAR</button>
+            <button id="exitBtn">🚪 SALIR</button>
+            <div class="controls">
+                <p>📖 CONTROLES:</p>
+                <p>←/→ o A/D - Mover | ESPACIO - Disparar | ESC - Pausar</p>
+            </div>
+        </div>
+
+        <!-- Menu Pausa -->
+        <div id="pauseMenu" class="menu" style="display: none;">
+            <h2>⏸️ PAUSA</h2>
+            <p>Presiona ESC para continuar</p>
+        </div>
+
+        <!-- Game Over -->
+        <div id="gameOverMenu" class="menu" style="display: none;">
+            <h2 style="color: #ff4444; text-shadow: 0 0 20px #f00;">💀 GAME OVER</h2>
+            <p>Puntuación: <span id="finalScore">0</span></p>
+            <button id="retryBtn">🔄 VOLVER A JUGAR</button>
+            <button id="menuBtn">🏠 MENU PRINCIPAL</button>
+        </div>
+
+        <!-- Victoria -->
+        <div id="victoryMenu" class="menu" style="display: none;">
+            <h2 style="color: #44ff88; text-shadow: 0 0 20px #0f8;">🎉 VICTORIA!</h2>
+            <p>Puntuación: <span id="victoryScore">0</span></p>
+            <button id="victoryRetryBtn">🔄 VOLVER A JUGAR</button>
+            <button id="victoryMenuBtn">🏠 MENU PRINCIPAL</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let gameState = 'menu';
+        let score = 0;
+        let lives = 3;
+        let ammo = 100;
+        let maxAmmo = 100;
+        let stage = 1;
+        let spawnTimer = 0;
+        let allySpawned = false;
+        let bossSpawned = false;
+        let frameCount = 0;
+
+        let player = null;
+        let enemies = [];
+        let bullets = [];
+        let enemyBullets = [];
+        let boss = null;
+        let ally = null;
+        let npc = null;
+        let stars = [];
+
+        const keys = {};
+        let shootCooldown = 0;
+        let invincibleTimer = 0;
+
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < 150; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 0.5,
+                    speed: Math.random() * 2 + 0.5,
+                    brightness: Math.random()
+                });
+            }
+        }
+
+        function drawStars() {
+            stars.forEach(s => {
+                s.y += s.speed;
+                if (s.y > canvas.height) {
+                    s.y = 0;
+                    s.x = Math.random() * canvas.width;
+                }
+                let alpha = 0.3 + s.brightness * 0.7;
+                ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        function drawPlayer(x, y, w, h, flash = false) {
+            if (flash) return;
+            const grad = ctx.createRadialGradient(x + w/2, y + h/2, 0, x + w/2, y + h/2, w);
+            grad.addColorStop(0, 'rgba(0, 255, 255, 0.3)');
+            grad.addColorStop(1, 'rgba(0, 255, 255, 0)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(x - 10, y - 10, w + 20, h + 20);
+            
+            ctx.fillStyle = '#00ffff';
+            ctx.beginPath();
+            ctx.moveTo(x + w/2, y);
+            ctx.lineTo(x + w, y + h);
+            ctx.lineTo(x + w/2, y + h*0.7);
+            ctx.lineTo(x, y + h);
+            ctx.closePath();
+            ctx.fill();
+            
+            ctx.fillStyle = '#004444';
+            ctx.beginPath();
+            ctx.moveTo(x + w/2, y + 10);
+            ctx.lineTo(x + w*0.7, y + h*0.8);
+            ctx.lineTo(x + w/2, y + h*0.6);
+            ctx.lineTo(x + w*0.3, y + h*0.8);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function drawEnemy(x, y, w, h) {
+            const grad = ctx.createRadialGradient(x + w/2, y + h/2, 0, x + w/2, y + h/2, w);
+            grad.addColorStop(0, 'rgba(255, 50, 50, 0.3)');
+            grad.addColorStop(1, 'rgba(255, 50, 50, 0)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(x - 8, y - 8, w + 16, h + 16);
+            
+            ctx.fillStyle = '#ff4444';
+            ctx.beginPath();
+            ctx.arc(x + w/2, y + h/2, w/2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#aa0000';
+            ctx.beginPath();
+            ctx.arc(x + w/2, y + h/2, w/3, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function drawBoss(x, y, w, h) {
+            const grad = ctx.createRadialGradient(x + w/2, y + h/2, 0, x + w/2, y + h/2, w*1.5);
+            grad.addColorStop(0, 'rgba(255, 0, 150, 0.4)');
+            grad.addColorStop(1, 'rgba(255, 0, 150, 0)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(x - 30, y - 30, w + 60, h + 60);
+            
+            ctx.fillStyle = '#b80080';
+            ctx.beginPath();
+            ctx.ellipse(x + w/2, y + h/2, w/2, h/2, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ff66cc';
+            ctx.beginPath();
+            ctx.ellipse(x + w/2, y + h/2, w/3, h/3, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(x + w*0.35, y + h*0.4, 8, 0, Math.PI * 2);
+            ctx.arc(x + w*0.65, y + h*0.4, 8, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ff0066';
+            ctx.beginPath();
+            ctx.arc(x + w*0.35, y + h*0.4, 4, 0, Math.PI * 2);
+            ctx.arc(x + w*0.65, y + h*0.4, 4, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function drawBullet(x, y, r, color, owner) {
+            const grad = ctx.createRadialGradient(x, y, 0, x, y, r*2);
+            grad.addColorStop(0, color);
+            grad.addColorStop(0.5, color + 'aa');
+            grad.addColorStop(1, 'transparent');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(x, y, r*2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(x - r*0.3, y - r*0.3, r*0.3, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function showMessage(text, duration = 3000) {
+            const msg = document.getElementById('message');
+            msg.textContent = text;
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', duration);
+        }
+
+        class Player {
+            constructor() {
+                this.x = canvas.width / 2 - 24;
+                this.y = canvas.height - 100;
+                this.width = 48;
+                this.height = 48;
+                this.speed = 6;
+            }
+
+            update() {
+                if (keys['ArrowLeft'] || keys['KeyA']) this.x -= this.speed;
+                if (keys['ArrowRight'] || keys['KeyD']) this.x += this.speed;
+                this.x = Math.max(10, Math.min(canvas.width - this.width - 10, this.x));
+            }
+
+            draw() {
+                let flash = invincibleTimer > 0 && Math.floor(invincibleTimer / 5) % 2 === 0;
+                drawPlayer(this.x, this.y, this.width, this.height, flash);
+            }
+
+            getBounds() {
+                return { x: this.x + 10, y: this.y + 10, w: this.width - 20, h: this.height - 20 };
+            }
+        }
+
+        class Enemy {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.width = 40;
+                this.height = 40;
+                this.speed = 1.5 + Math.random() * 1.5;
+                this.health = 30;
+                this.shootTimer = 0;
+                this.moveAngle = Math.random() * Math.PI * 2;
+            }
+
+            update() {
+                this.y += this.speed;
+                this.x += Math.sin(frameCount * 0.05 + this.moveAngle) * 1.5;
+                this.shootTimer++;
+            }
+
+            draw() {
+                drawEnemy(this.x, this.y, this.width, this.height);
+            }
+
+            shoot() {
+                if (this.shootTimer > 50 + Math.random() * 40) {
+                    this.shootTimer = 0;
+                    return new Bullet(this.x + this.width/2, this.y + this.height, 0, 4, '#ff6666', 'enemy');
+                }
+                return null;
+            }
+
+            getBounds() {
+                return { x: this.x, y: this.y, w: this.width, h: this.height };
+            }
+        }
+
+        class Boss {
+            constructor() {
+                this.x = canvas.width / 2 - 60;
+                this.y = -180;
+                this.width = 120;
+                this.height = 120;
+                this.speed = 2.5;
+                this.health = 800;
+                this.maxHealth = 800;
+                this.phase = 1;
+                this.attackTimer = 0;
+                this.currentAttack = 0;
+                this.moveDir = 1;
+                this.entering = true;
+                this.patternOffset = 0;
+            }
+
+            update() {
+                this.patternOffset += 0.05;
+                if (this.entering) {
+                    this.y += 1.5;
+                    if (this.y >= 60) this.entering = false;
+                    return [];
+                }
+
+                this.x += this.moveDir * this.speed;
+                if (this.x <= 40 || this.x >= canvas.width - this.width - 40) this.moveDir *= -1;
+
+                if (this.health <= 260 && this.phase < 3) this.phase = 3;
+                else if (this.health <= 530 && this.phase < 2) this.phase = 2;
+
+                this.attackTimer++;
+                let newBullets = [];
+                
+                let interval = this.phase === 1 ? 50 : this.phase === 2 ? 35 : 25;
+                if (this.attackTimer >= interval) {
+                    this.attackTimer = 0;
+                    this.currentAttack = (this.currentAttack + 1) % 3;
+
+                    if (this.currentAttack === 0) {
+                        for (let i = -5; i <= 5; i++) {
+                            let angle = Math.PI/2 + i * 0.25 + Math.sin(this.patternOffset) * 0.2;
+                            newBullets.push(new Bullet(
+                                this.x + this.width/2, this.y + this.height,
+                                Math.cos(angle)*5, Math.sin(angle)*5,
+                                '#ff66aa', 'enemy'
+                            ));
+                        }
+                    } else if (this.currentAttack === 1) {
+                        for (let i = 0; i < 3; i++) {
+                            let angle = Math.atan2(player.y - this.y, player.x - this.x) + (i - 1) * 0.2;
+                            newBullets.push(new Bullet(
+                                this.x + this.width/2, this.y + this.height,
+                                Math.cos(angle)*7, Math.sin(angle)*7,
+                                '#ffaa00', 'enemy'
+                            ));
+                        }
+                    } else {
+                        let arms = this.phase === 1 ? 8 : this.phase === 2 ? 12 : 16;
+                        for (let i = 0; i < arms; i++) {
+                            let angle = (i / arms) * Math.PI * 2 + this.patternOffset;
+                            newBullets.push(new Bullet(
+                                this.x + this.width/2, this.y + this.height,
+                                Math.cos(angle)*3.5, Math.sin(angle)*3.5,
+                                '#aa66ff', 'enemy'
+                            ));
+                        }
+                    }
+                }
+                return newBullets;
+            }
+
+            draw() {
+                drawBoss(this.x, this.y, this.width, this.height);
+            }
+
+            getBounds() {
+                return { x: this.x, y: this.y, w: this.width, h: this.height };
+            }
+        }
+
+        class Ally {
+            constructor() {
+                this.x = canvas.width / 2 - 30;
+                this.y = 380;
+                this.width = 60;
+                this.height = 60;
+                this.collected = false;
+                this.fade = 255;
+                this.pulse = 0;
+            }
+
+            update() {
+                this.pulse += 0.1;
+                if (this.collected) this.fade -= 2.5;
+            }
+
+            draw() {
+                if (this.fade <= 0) return;
+                ctx.globalAlpha = this.fade / 255;
+                
+                let scale = 1 + Math.sin(this.pulse) * 0.1;
+                let centerX = this.x + this.width/2;
+                let centerY = this.y + this.height/2;
+                
+                const grad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 60);
+                grad.addColorStop(0, 'rgba(100, 255, 100, 0.4)');
+                grad.addColorStop(1, 'rgba(100, 255, 100, 0)');
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, 60, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.fillStyle = '#44ff44';
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, this.width/2 * scale, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.globalAlpha = 1;
+            }
+
+            getBounds() {
+                return { x: this.x, y: this.y, w: this.width, h: this.height };
+            }
+        }
+
+        class NPC {
+            constructor() {
+                this.x = 100 + Math.random() * 440;
+                this.y = 280 + Math.random() * 200;
+                this.width = 60;
+                this.height = 60;
+                this.showMsg = false;
+                this.msgTimer = 0;
+            }
+
+            update() {
+                if (this.showMsg) {
+                    this.msgTimer++;
+                    if (this.msgTimer > 280) {
+                        this.showMsg = false;
+                        this.msgTimer = 0;
+                    }
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = '#ff88aa';
+                ctx.beginPath();
+                ctx.arc(this.x + this.width/2, this.y + this.height/2, this.width/2, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.fillStyle = '#ff4488';
+                ctx.beginPath();
+                ctx.arc(this.x + this.width/2, this.y + this.height/2, this.width/3, 0, Math.PI * 2);
+                ctx.fill();
+                
+                if (this.showMsg) {
+                    ctx.fillStyle = 'rgba(10, 0, 30, 0.95)';
+                    ctx.fillRect(this.x - 100, this.y - 60, 320, 50);
+                    ctx.strokeStyle = '#ff66ff';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(this.x - 100, this.y - 60, 320, 50);
+                    ctx.fillStyle = '#ff99ff';
+                    ctx.font = '18px Courier New';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Ya tu sabe, continua por aqui", this.x + this.width/2, this.y - 28);
+                    ctx.textAlign = 'left';
+                }
+            }
+
+            getBounds() {
+                return { x: this.x, y: this.y, w: this.width, h: this.height };
+            }
+        }
+
+        class Bullet {
+            constructor(x, y, dx, dy, color, owner) {
+                this.x = x;
+                this.y = y;
+                this.dx = dx;
+                this.dy = dy;
+                this.color = color;
+                this.owner = owner;
+                this.radius = owner === 'player' ? 7 : 9;
+            }
+
+            update() {
+                this.x += this.dx;
+                this.y += this.dy;
+            }
+
+            draw() {
+                drawBullet(this.x, this.y, this.radius, this.color, this.owner);
+            }
+
+            isOffScreen() {
+                return this.y < -30 || this.y > canvas.height + 30 || 
+                       this.x < -30 || this.x > canvas.width + 30;
+            }
+
+            getBounds() {
+                return { x: this.x - this.radius, y: this.y - this.radius, w: this.radius*2, h: this.radius*2 };
+            }
+        }
+
+        function checkCollision(a, b) {
+            return a.x < b.x + b.w && a.x + a.w > b.x &&
+                   a.y < b.y + b.h && a.y + a.h > b.y;
+        }
+
+        function initGame() {
+            score = 0;
+            lives = 3;
+            ammo = maxAmmo;
+            stage = 1;
+            spawnTimer = 0;
+            allySpawned = false;
+            bossSpawned = false;
+            shootCooldown = 0;
+            invincibleTimer = 0;
+            frameCount = 0;
+
+            player = new Player();
+            enemies = [];
+            bullets = [];
+            enemyBullets = [];
+            boss = null;
+            ally = null;
+            npc = new NPC();
+            initStars();
+
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('lives').textContent = lives;
+            document.getElementById('ammo').textContent = ammo;
+            document.getElementById('stage').textContent = stage;
+            
+            if (boss) {
+                document.getElementById('bossHealth').style.display = 'block';
+                document.getElementById('bossLabel').style.display = 'block';
+                document.getElementById('bossHealthBar').style.width = (boss.health / boss.maxHealth * 100) + '%';
+            } else {
+                document.getElementById('bossHealth').style.display = 'none';
+                document.getElementById('bossLabel').style.display = 'none';
+            }
+        }
+
+        function showMenu(id) {
+            document.querySelectorAll('.menu').forEach(m => m.style.display = 'none');
+            if (id !== 'none') document.getElementById(id).style.display = 'flex';
+        }
+
+        function gameLoop() {
+            ctx.fillStyle = '#0a0a1a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            frameCount++;
+            drawStars();
+
+            if (gameState === 'playing') {
+                player.update();
+
+                if (keys['Space'] && shootCooldown <= 0 && ammo > 0) {
+                    shootCooldown = 8;
+                    ammo--;
+                    bullets.push(new Bullet(player.x + player.width/2, player.y, 0, -12, '#00ffff', 'player'));
+                    bullets.push(new Bullet(player.x + player.width/2 - 10, player.y + 10, -1, -11, '#00ffff', 'player'));
+                    bullets.push(new Bullet(player.x + player.width/2 + 10, player.y + 10, 1, -11, '#00ffff', 'player'));
+                }
+                if (shootCooldown > 0) shootCooldown--;
+                if (invincibleTimer > 0) invincibleTimer--;
+
+                spawnTimer++;
+                let spawnRate = Math.max(25, 130 - stage * 22);
+                if (stage < 5 && spawnTimer >= spawnRate) {
+                    spawnTimer = 0;
+                    enemies.push(new Enemy(Math.random() * (canvas.width - 50) + 5, -50));
+                    if (stage > 1) enemies.push(new Enemy(Math.random() * (canvas.width - 50) + 5, -80));
+                    if (stage > 3) enemies.push(new Enemy(Math.random() * (canvas.width - 50) + 5, -110));
+                }
+
+                if (stage >= 3 && !allySpawned && !ally) {
+                    ally = new Ally();
+                    allySpawned = true;
+                }
+
+                if (stage === 5 && !bossSpawned && enemies.length === 0) {
+                    boss = new Boss();
+                    bossSpawned = true;
+                }
+
+                if (stage < 5 && enemies.length === 0 && spawnTimer > 160) {
+                    stage++;
+                    score += 600;
+                    spawnTimer = 0;
+                    showMessage(`🌸 FASE ${stage} 🌸`);
+                }
+
+                enemies.forEach(e => e.update());
+                if (boss) {
+                    let bossBullets = boss.update();
+                    enemyBullets.push(...bossBullets);
+                }
+                if (ally) ally.update();
+                if (npc) npc.update();
+
+                let newEnemyBullets = [];
+                enemies.forEach(e => {
+                    let b = e.shoot();
+                    if (b) newEnemyBullets.push(b);
+                });
+                enemyBullets.push(...newEnemyBullets);
+
+                bullets.forEach(b => b.update());
+                enemyBullets.forEach(b => b.update());
+
+                bullets.forEach(b => {
+                    enemies.forEach(e => {
+                        if (checkCollision(b.getBounds(), e.getBounds())) {
+                            e.health -= 25;
+                            b.x = -1000;
+                            if (e.health <= 0) {
+                                score += 130;
+                                e.y = canvas.height + 1000;
+                            }
+                        }
+                    });
+                    if (boss && checkCollision(b.getBounds(), boss.getBounds())) {
+                        boss.health -= 15;
+                        score += 12;
+                        b.x = -1000;
+                        if (boss.health <= 0) {
+                            score += 7000;
+                            document.getElementById('victoryScore').textContent = score;
+                            showMenu('victoryMenu');
+                            gameState = 'victory';
+                        }
+                    }
+                });
+
+                if (invincibleTimer === 0) {
+                    enemyBullets.forEach(b => {
+                        if (checkCollision(b.getBounds(), player.getBounds())) {
+                            lives--;
+                            invincibleTimer = 130;
+                            b.x = -1000;
+                            if (lives <= 0) {
+                                document.getElementById('finalScore').textContent = score;
+                                showMenu('gameOverMenu');
+                                gameState = 'gameover';
+                            }
+                        }
+                    });
+
+                    enemies.forEach(e => {
+                        if (checkCollision(e.getBounds(), player.getBounds())) {
+                            lives--;
+                            invincibleTimer = 130;
+                            e.health = 0;
+                            if (lives <= 0) {
+                                document.getElementById('finalScore').textContent = score;
+                                showMenu('gameOverMenu');
+                                gameState = 'gameover';
+                            }
+                        }
+                    });
+                }
+
+                if (ally && !ally.collected && checkCollision(player.getBounds(), ally.getBounds())) {
+                    ally.collected = true;
+                    ammo = maxAmmo;
+                    showMessage('✨ Munición recargada! ✨');
+                }
+
+                if (npc && !npc.showMsg && checkCollision(player.getBounds(), npc.getBounds())) {
+                    npc.showMsg = true;
+                }
+
+                enemies = enemies.filter(e => e.y < canvas.height + 100 && e.health > 0);
+                bullets = bullets.filter(b => !b.isOffScreen() && b.x > -500);
+                enemyBullets = enemyBullets.filter(b => !b.isOffScreen() && b.x > -500);
+
+                if (npc) npc.draw();
+                if (ally) ally.draw();
+                enemies.forEach(e => e.draw());
+                if (boss) boss.draw();
+                player.draw();
+                bullets.forEach(b => b.draw());
+                enemyBullets.forEach(b => b.draw());
+
+                updateUI();
+            }
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        document.addEventListener('keydown', e => {
+            keys[e.code] = true;
+            if (e.code === 'Escape') {
+                if (gameState === 'playing') {
+                    gameState = 'paused';
+                    showMenu('pauseMenu');
+                } else if (gameState === 'paused') {
+                    gameState = 'playing';
+                    showMenu('none');
+                } else if (gameState === 'gameover' || gameState === 'victory') {
+                    gameState = 'menu';
+                    showMenu('mainMenu');
+                }
+            }
+        });
+        document.addEventListener('keyup', e => keys[e.code] = false);
+
+        document.getElementById('playBtn').addEventListener('click', () => {
+            initGame();
+            gameState = 'playing';
+            showMenu('none');
+        });
+
+        document.getElementById('retryBtn').addEventListener('click', () => {
+            initGame();
+            gameState = 'playing';
+            showMenu('none');
+        });
+
+        document.getElementById('menuBtn').addEventListener('click', () => {
+            gameState = 'menu';
+            showMenu('mainMenu');
+        });
+
+        document.getElementById('victoryRetryBtn').addEventListener('click', () => {
+            initGame();
+            gameState = 'playing';
+            showMenu('none');
+        });
+
+        document.getElementById('victoryMenuBtn').addEventListener('click', () => {
+            gameState = 'menu';
+            showMenu('mainMenu');
+        });
+
+        document.getElementById('exitBtn').addEventListener('click', () => {
+            alert('¡Gracias por jugar! ✨');
+        });
+
+        initStars();
+        showMenu('mainMenu');
+        gameLoop();
+    </script>
+</body>
+</html>

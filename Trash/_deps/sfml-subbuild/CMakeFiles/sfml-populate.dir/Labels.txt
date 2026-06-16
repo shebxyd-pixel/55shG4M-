@@ -1,0 +1,14 @@
+# Target labels
+ sfml-populate
+# Source files and their labels
+C:/Users/josea/Downloads/Pruebas Trae/_deps/sfml-subbuild/CMakeFiles/sfml-populate
+C:/Users/josea/Downloads/Pruebas Trae/_deps/sfml-subbuild/CMakeFiles/40c1814c0c6561acdd26e77d7a9b6e74/sfml-populate.rule
+C:/Users/josea/Downloads/Pruebas Trae/_deps/sfml-subbuild/CMakeFiles/ebd0fee19647abb26810c91318e970b2/sfml-populate-complete.rule
+C:/Users/josea/Downloads/Pruebas Trae/_deps/sfml-subbuild/CMakeFiles/840741e9e4255d1c72bd05d42a01edba/sfml-populate-build.rule
+C:/Users/josea/Downloads/Pruebas Trae/_deps/sfml-subbuild/CMakeFiles/840741e9e4255d1c72bd05d42a01edba/sfml-populate-configure.rule
+C:/Users/josea/Downloads/Pruebas Trae/_deps/sfml-subbuild/CMakeFiles/840741e9e4255d1c72bd05d42a01edba/sfml-populate-download.rule
+C:/Users/josea/Downloads/Pruebas Trae/_deps/sfml-subbuild/CMakeFiles/840741e9e4255d1c72bd05d42a01edba/sfml-populate-install.rule
+C:/Users/josea/Downloads/Pruebas Trae/_deps/sfml-subbuild/CMakeFiles/840741e9e4255d1c72bd05d42a01edba/sfml-populate-mkdir.rule
+C:/Users/josea/Downloads/Pruebas Trae/_deps/sfml-subbuild/CMakeFiles/840741e9e4255d1c72bd05d42a01edba/sfml-populate-patch.rule
+C:/Users/josea/Downloads/Pruebas Trae/_deps/sfml-subbuild/CMakeFiles/840741e9e4255d1c72bd05d42a01edba/sfml-populate-test.rule
+C:/Users/josea/Downloads/Pruebas Trae/_deps/sfml-subbuild/CMakeFiles/840741e9e4255d1c72bd05d42a01edba/sfml-populate-update.rule

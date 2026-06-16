@@ -1,0 +1,27 @@
+﻿  Building Custom Rule C:/Users/josea/Downloads/Pruebas Trae/_deps/sfml-src/src/SFML/Audio/CMakeLists.txt
+  ALCheck.cpp
+  AlResource.cpp
+  AudioDevice.cpp
+  Listener.cpp
+  Music.cpp
+  Sound.cpp
+  SoundBuffer.cpp
+  SoundBufferRecorder.cpp
+  InputSoundFile.cpp
+  OutputSoundFile.cpp
+  SoundRecorder.cpp
+  SoundSource.cpp
+  SoundStream.cpp
+  SoundFileFactory.cpp
+  SoundFileReaderFlac.cpp
+  SoundFileReaderMp3.cpp
+  SoundFileReaderOgg.cpp
+  SoundFileReaderWav.cpp
+  SoundFileWriterFlac.cpp
+  SoundFileWriterOgg.cpp
+  Generando código...
+  Compilando...
+  SoundFileWriterWav.cpp
+  Generando código...
+     Creando biblioteca C:/Users/josea/Downloads/Pruebas Trae/lib/Debug/sfml-audio-d.lib y objeto C:/Users/josea/Downloads/Pruebas Trae/lib/Debug/sfml-audio-d.exp
+  sfml-audio.vcxproj -> C:\Users\josea\Downloads\Pruebas Trae\bin\Debug\sfml-audio-d-2.dll

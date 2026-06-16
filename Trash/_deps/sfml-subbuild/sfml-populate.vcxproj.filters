@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\josea\Downloads\Pruebas Trae\_deps\sfml-subbuild\CMakeFiles\840741e9e4255d1c72bd05d42a01edba\sfml-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\josea\Downloads\Pruebas Trae\_deps\sfml-subbuild\CMakeFiles\840741e9e4255d1c72bd05d42a01edba\sfml-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\josea\Downloads\Pruebas Trae\_deps\sfml-subbuild\CMakeFiles\840741e9e4255d1c72bd05d42a01edba\sfml-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\josea\Downloads\Pruebas Trae\_deps\sfml-subbuild\CMakeFiles\840741e9e4255d1c72bd05d42a01edba\sfml-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\josea\Downloads\Pruebas Trae\_deps\sfml-subbuild\CMakeFiles\840741e9e4255d1c72bd05d42a01edba\sfml-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\josea\Downloads\Pruebas Trae\_deps\sfml-subbuild\CMakeFiles\840741e9e4255d1c72bd05d42a01edba\sfml-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\josea\Downloads\Pruebas Trae\_deps\sfml-subbuild\CMakeFiles\840741e9e4255d1c72bd05d42a01edba\sfml-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\josea\Downloads\Pruebas Trae\_deps\sfml-subbuild\CMakeFiles\840741e9e4255d1c72bd05d42a01edba\sfml-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\josea\Downloads\Pruebas Trae\_deps\sfml-subbuild\CMakeFiles\ebd0fee19647abb26810c91318e970b2\sfml-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\josea\Downloads\Pruebas Trae\_deps\sfml-subbuild\CMakeFiles\40c1814c0c6561acdd26e77d7a9b6e74\sfml-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\josea\Downloads\Pruebas Trae\_deps\sfml-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\josea\Downloads\Pruebas Trae\_deps\sfml-subbuild\CMakeFiles\sfml-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{6E8A969C-F9E0-3695-9400-B1314DC9FFB6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

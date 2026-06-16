@@ -1,0 +1,65 @@
+﻿  Building Custom Rule C:/Users/josea/Downloads/Pruebas Trae/touhou_game/CMakeLists.txt
+  Bullet.cpp
+  BulletPattern.cpp
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\BulletPattern.cpp(3,144): warning C4100: 'bulletsPerStep': parámetro sin referencia
+  Game.cpp
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(210,11): error C2664: 'void World::render(sf::RenderWindow &,sf::View &)': el argumento 2 no puede convertirse de 'sf::View' a 'sf::View &'
+      C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(210,42):
+      Una referencia que no es const solamente se puede enlazar a un valor L
+      C:\Users\josea\Downloads\Pruebas Trae\touhou_game\include\World.hpp(18,10):
+      vea la declaración de 'World::render'
+      C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(210,11):
+      al hacer coincidir la lista de argumentos '(_Ty, sf::View)'
+          with
+          [
+              _Ty=sf::RenderWindow
+          ]
+  
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(245,76): warning C4244: 'argumento': conversión de 'T' a 'float'; posible pérdida de datos
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(245,76): warning C4244:         with
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(245,76): warning C4244:         [
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(245,76): warning C4244:             T=unsigned int
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(245,76): warning C4244:         ]
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(245,51): warning C4244: 'argumento': conversión de 'T' a 'float'; posible pérdida de datos
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(245,51): warning C4244:         with
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(245,51): warning C4244:         [
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(245,51): warning C4244:             T=unsigned int
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(245,51): warning C4244:         ]
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(262,77): warning C4244: 'argumento': conversión de 'T' a 'float'; posible pérdida de datos
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(262,77): warning C4244:         with
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(262,77): warning C4244:         [
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(262,77): warning C4244:             T=unsigned int
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(262,77): warning C4244:         ]
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(262,48): warning C4244: 'argumento': conversión de 'T' a 'float'; posible pérdida de datos
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(262,48): warning C4244:         with
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(262,48): warning C4244:         [
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(262,48): warning C4244:             T=unsigned int
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(262,48): warning C4244:         ]
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(272,80): warning C4244: 'argumento': conversión de 'T' a 'float'; posible pérdida de datos
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(272,80): warning C4244:         with
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(272,80): warning C4244:         [
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(272,80): warning C4244:             T=unsigned int
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(272,80): warning C4244:         ]
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(272,51): warning C4244: 'argumento': conversión de 'T' a 'float'; posible pérdida de datos
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(272,51): warning C4244:         with
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(272,51): warning C4244:         [
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(272,51): warning C4244:             T=unsigned int
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Game.cpp(272,51): warning C4244:         ]
+  HUD.cpp
+  Menu.cpp
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Menu.cpp(43,30): warning C4244: 'argumento': conversión de 'T' a 'float'; posible pérdida de datos
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Menu.cpp(43,30): warning C4244:         with
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Menu.cpp(43,30): warning C4244:         [
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Menu.cpp(43,30): warning C4244:             T=unsigned int
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Menu.cpp(43,30): warning C4244:         ]
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Menu.cpp(49,50): warning C4244: 'argumento': conversión de 'size_t' a 'float'; posible pérdida de datos
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Menu.cpp(49,41): warning C4244: 'argumento': conversión de 'T' a 'float'; posible pérdida de datos
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Menu.cpp(49,41): warning C4244:         with
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Menu.cpp(49,41): warning C4244:         [
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Menu.cpp(49,41): warning C4244:             T=unsigned int
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\Menu.cpp(49,41): warning C4244:         ]
+  Player.cpp
+  ResourceManager.cpp
+  World.cpp
+C:\Users\josea\Downloads\Pruebas Trae\touhou_game\src\World.cpp(39,29): warning C4100: 'deltaTime': parámetro sin referencia
+  main.cpp
